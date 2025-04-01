@@ -42,6 +42,28 @@ function initGame() {
     isGameRunning = false;
 }
 
+var sekunde = 0;
+var sekundeI = 0;
+var minuteI = 0;
+var izpisTimer;
+
+function timer() {
+    sekunde++;
+
+    sekundeI = ((sekundeI = (sekunde % 60)) > 9) ? sekundeI : "0"+sekundeI;
+    minuteI = ((minuteI = Math.floor(sekunde / 60)) > 9) ? minuteI : "0"+minuteI;
+    izpisTimer = minuteI + ":" + sekundeI;
+}
+
+document.addEventListener("mousemove", mouseMoveHandler, false);
+
+function mouseMoveHandler(e) {
+    var relativeX = e.clientX - canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < canvas.width) {
+        paddleX = relativeX - paddleWidth/2;
+    }
+}
+
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -58,8 +80,8 @@ document.getElementById("stopButton").addEventListener("click", function() {
 
 document.getElementById("credentialsButton").addEventListener("click", function() {
     Swal.fire({
-        title: 'Credentials',
-        text: 'Made by Nik Ljubič',
+        title: 'Credits',
+        text: 'Made by Nik Ljubic',
         icon: 'info',
         confirmButtonText: 'Exit',
         confirmButtonColor: '#FFB70A'
@@ -137,7 +159,11 @@ function collisionDetection() {
                     b.status = 0;
                     score++;
                     if (score === brickRowCount * brickColumnCount) {
-                        alert("YOU WIN, CONGRATULATIONS!");
+                        Swal.fire({
+                            title: "CONGRATULATIONS!",
+                            text: "You won!",
+                            icon: "success"
+                        });
                         resetGame();
                     }
                 }
@@ -147,9 +173,11 @@ function collisionDetection() {
 }
 
 function drawScore() {
+    timer();
+
     ctx.font = "16px 'Roboto', Arial, sans-serif"; // Update font for the score text
     ctx.fillStyle = "black";
-    ctx.fillText("Score: " + score, 8, 20);
+    ctx.fillText("Score: " + score + "  Time: " + izpisTimer, 8, 20);
 }
 
 function paddleCollision() {
@@ -194,7 +222,11 @@ function draw() {
         // Paddle collision and game over check
         if (!paddleCollision()) {
             if (y + dy > canvas.height + ballRadius) {
-                alert("GAME OVER");
+                Swal.fire({
+                    title: "Game Over!",
+                    text: "You lost!",
+                    icon: "error"
+                });
                 resetGame();
             }
         }
@@ -211,6 +243,9 @@ function draw() {
 
 
 function resetGame() {
+    sekunde = 0;
+    sekundeI = 0;
+    minuteI = 0;
     initGame();
     draw();
 }
