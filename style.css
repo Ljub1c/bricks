@@ -1,9 +1,64 @@
-*{
-
+body {
+    background-image: url('imgs/minecraft.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    margin: 0; 
+    height: 100vh; 
+    position: relative; 
 }
-canvas { background: #eee;
-     display: block;
-      margin: auto;
-      border:2px solid black;
-     };
+#gameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+canvas {
+    background: #eee; 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
+}
+#controls {
+    margin-top: 10px;
+}
 
+.pill-button {
+    margin: auto;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none; 
+    
+    cursor: pointer; 
+}
+.pill-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.5);
+}
+
+#controls .pill-button {
+    padding: 15px 30px; 
+    font-size: 18px; 
+}
+
+#startButton {
+    background-color: #ADDB5E; 
+}
+#stopButton {
+    background-color: #11c5d9; 
+}
+#credentialsButton {
+    background-color: #ADDB5E; 
+    color: black; 
+}
+
+#credentialsButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}

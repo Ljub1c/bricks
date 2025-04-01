@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-   
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="imgs/ikonca.png">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js" defer></script>
+
 </head>
 <body>
-    <canvas id="myCanvas" width="700" height="700"></canvas>
-    <script src="script.js"></script>
-
+    <div id="gameContainer">
+        <canvas id="myCanvas" width="480" height="320"></canvas>
+        <div id="controls">
+            <button id="startButton" class="pill-button">Start</button>
+            <button id="stopButton" class="pill-button">Stop</button>
+        </div>
+    </div>
    
+    <button id="credentialsButton" class="pill-button">Credits</button>
+
 </body>
 </html>
