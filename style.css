@@ -1,10 +1,12 @@
 body {
-    background-image: url('imgs/minecraft.jpg'); 
+    background-image: url('imgs/ozadje.jpg'); 
     background-size: cover; 
     background-position: center; 
     margin: 0; 
     height: 100vh; 
     position: relative; 
+    overflow: none;
+    background-repeat: no-repeat;
 }
 #gameContainer {
     display: flex;
