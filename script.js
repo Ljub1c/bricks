@@ -11,11 +11,10 @@ var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 var ballImage = new Image();
-ballImage.src = "imgs/zogica.png";
+ballImage.src = "imgs/TNT.png";
 
 var x, y, dx, dy, paddleX, rightPressed, leftPressed, score, bricks, isGameRunning;
 
-// Wait for the ball image to load before starting the game
 ballImage.onload = function() {
     initGame();
     draw();
@@ -24,8 +23,8 @@ ballImage.onload = function() {
 function initGame() {
     x = canvas.width / 2;
     y = canvas.height - 30;
-    dx = 3; // Increased ball speed from 0.5 to 0.7
-    dy = -3; // Increased ball speed from 0.5 to 0.7
+    dx = 3;
+    dy = -3;
     paddleX = (canvas.width - paddleWidth) / 2;
     rightPressed = false;
     leftPressed = false;
@@ -36,7 +35,7 @@ function initGame() {
     for (var c = 0; c < brickColumnCount; c++) {
         bricks[c] = [];
         for (var r = 0; r < brickRowCount; r++) {
-            bricks[c][r] = { x: 0, y: 0, status: 1, color: brickColor }; // Set color to fixed value
+            bricks[c][r] = { x: 0, y: 0, status: 1, color: brickColor }; 
         }
     }
     isGameRunning = false;
@@ -108,7 +107,7 @@ function drawBall() {
     if (ballImage.complete && ballImage.naturalWidth !== 0) {
         ctx.drawImage(ballImage, x - ballRadius, y - ballRadius, ballRadius * 2, ballRadius * 2);
     } else {
-        // Fallback if image fails to load
+        
         ctx.beginPath();
         ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
         ctx.fillStyle = "#0095DD";
@@ -120,7 +119,7 @@ function drawBall() {
 function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "gray"; // Paddle color set to grey (as per previous request)
+    ctx.fillStyle = "gray"; 
     ctx.fill();
     ctx.closePath();
 }
@@ -135,7 +134,7 @@ function drawBricks() {
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
                 ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                ctx.fillStyle = bricks[c][r].color; // Draw brick with fixed color
+                ctx.fillStyle = bricks[c][r].color; 
                 ctx.fill();
                 ctx.closePath();
             }
@@ -150,11 +149,11 @@ function collisionDetection() {
             if (b.status === 1) {
                 if (x + ballRadius > b.x && x - ballRadius < b.x + brickWidth &&
                     y + ballRadius > b.y && y - ballRadius < b.y + brickHeight) {
-                    // More precise brick collision
+                    
                     if (x < b.x || x > b.x + brickWidth) {
-                        dx = -dx; // Side collision
+                        dx = -dx; 
                     } else {
-                        dy = -dy; // Top/bottom collision
+                        dy = -dy; 
                     }
                     b.status = 0;
                     score++;
@@ -175,7 +174,7 @@ function collisionDetection() {
 function drawScore() {
     timer();
 
-    ctx.font = "16px 'Roboto', Arial, sans-serif"; // Update font for the score text
+    ctx.font = "16px 'Roboto', Arial, sans-serif"; 
     ctx.fillStyle = "black";
     ctx.fillText("Score: " + score + "  Time: " + izpisTimer, 8, 20);
 }
@@ -183,14 +182,14 @@ function drawScore() {
 function paddleCollision() {
     if (y + dy + ballRadius > canvas.height - paddleHeight && dy > 0) {
         if (x > paddleX && x < paddleX + paddleWidth) {
-            // Calculate where the ball hits the paddle (0 to 1)
+          
             let hitPosition = (x - paddleX) / paddleWidth;
-            // Convert to -1 to 1 range
+            
             let normalizedHit = (hitPosition - 0.5) * 2;
-            // Adjust ball direction based on hit position
-            dx = 1.4 * normalizedHit; // Adjusted max horizontal speed to 1.4 to match initial speed of 0.7
-            dy = -Math.abs(dy); // Ensure upward movement
-            // Speed remains constant as per previous request
+           
+            dx = 1.4 * normalizedHit; 
+            dy = -Math.abs(dy); 
+           
             return true;
         }
         return false;
@@ -211,7 +210,7 @@ function draw() {
         x += dx;
         y += dy;
 
-        // Wall collisions
+       
         if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
             dx = -dx;
         }
@@ -219,7 +218,7 @@ function draw() {
             dy = -dy;
         }
 
-        // Paddle collision and game over check
+        
         if (!paddleCollision()) {
             if (y + dy > canvas.height + ballRadius) {
                 Swal.fire({
@@ -232,9 +231,9 @@ function draw() {
         }
 
         if (rightPressed && paddleX < canvas.width - paddleWidth) {
-            paddleX += 4; // Increased paddle speed from 3 to 4
+            paddleX += 4;
         } else if (leftPressed && paddleX > 0) {
-            paddleX -= 4; // Increased paddle speed from 3 to 4
+            paddleX -= 4; 
         }
 
         requestAnimationFrame(draw);
