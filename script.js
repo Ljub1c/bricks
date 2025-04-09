@@ -1,5 +1,6 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+
 var ballRadius = 10;
 var paddleHeight = 10;
 var paddleWidth = 75;
@@ -10,6 +11,7 @@ var brickHeight = 20;
 var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
+
 var ballImage = new Image();
 ballImage.src = "imgs/TNT.png";
 
@@ -19,13 +21,23 @@ brick.src = "imgs/brik.png";
 var bedrock = new Image();
 bedrock.src = "imgs/bedrock.png";
 
-
 var x, y, dx, dy, paddleX, rightPressed, leftPressed, score, bricks, isGameRunning;
+var sekunde = 0, sekundeI = "00", minuteI = "00", izpisTimer = "00:00";
+var imagesLoaded = 0;
 
-ballImage.onload = function() {
-    initGame();
-    draw();
-};
+
+function checkImagesLoaded() {
+    imagesLoaded++;
+    if (imagesLoaded === 3) { 
+        initGame();
+        draw();
+    }
+}
+
+ballImage.onload = checkImagesLoaded;
+brick.onload = checkImagesLoaded;
+bedrock.onload = checkImagesLoaded;
+
 
 function initGame() {
     x = canvas.width / 2;
@@ -37,39 +49,25 @@ function initGame() {
     leftPressed = false;
     score = 0;
     bricks = [];
-    var brickColor = "black"; 
-
     for (var c = 0; c < brickColumnCount; c++) {
         bricks[c] = [];
         for (var r = 0; r < brickRowCount; r++) {
-            bricks[c][r] = { x: 0, y: 0, status: 1, color: brickColor }; 
+            bricks[c][r] = { x: 0, y: 0, status: 1 };
         }
     }
     isGameRunning = false;
 }
 
-var sekunde = 0;
-var sekundeI = 0;
-var minuteI = 0;
-var izpisTimer;
 
 function timer() {
     sekunde++;
-
-    sekundeI = ((sekundeI = (sekunde % 60)) > 9) ? sekundeI : "0"+sekundeI;
-    minuteI = ((minuteI = Math.floor(sekunde / 60)) > 9) ? minuteI : "0"+minuteI;
+    sekundeI = ((sekunde % 60) > 9) ? sekunde % 60 : "0" + (sekunde % 60);
+    minuteI = (Math.floor(sekunde / 60) > 9) ? Math.floor(sekunde / 60) : "0" + Math.floor(sekunde / 60);
     izpisTimer = minuteI + ":" + sekundeI;
 }
 
+
 document.addEventListener("mousemove", mouseMoveHandler, false);
-
-function mouseMoveHandler(e) {
-    var relativeX = e.clientX - canvas.offsetLeft;
-    if(relativeX > 0 && relativeX < canvas.width) {
-        paddleX = relativeX - paddleWidth/2;
-    }
-}
-
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -94,6 +92,15 @@ document.getElementById("credentialsButton").addEventListener("click", function(
     });
 });
 
+
+function mouseMoveHandler(e) {
+    var relativeX = e.clientX - canvas.offsetLeft;
+    if (relativeX > 0 && relativeX < canvas.width) {
+        paddleX = relativeX - paddleWidth / 2;
+    }
+}
+
+
 function keyDownHandler(e) {
     if (e.key === "Right" || e.key === "ArrowRight") {
         rightPressed = true;
@@ -110,23 +117,13 @@ function keyUpHandler(e) {
     }
 }
 
+
 function drawBall() {
-    if (ballImage.complete && ballImage.naturalWidth !== 0) {
-        ctx.drawImage(ballImage, x - ballRadius, y - ballRadius, ballRadius * 2, ballRadius * 2);
-    } else {
-        
-        ctx.beginPath();
-        ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-        ctx.fillStyle = "#0095DD";
-        ctx.fill();
-        ctx.closePath();
-    }
+    ctx.drawImage(ballImage, x - ballRadius, y - ballRadius, ballRadius * 2, ballRadius * 2);
 }
 
 function drawPaddle() {
-
-    ctx.drawImage(bedrock,paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-
+    ctx.drawImage(bedrock, paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
 }
 
 function drawBricks() {
@@ -137,13 +134,12 @@ function drawBricks() {
                 var brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
-                
-                ctx.drawImage(brick,brickX, brickY, brickWidth, brickHeight);
-
+                ctx.drawImage(brick, brickX, brickY, brickWidth, brickHeight);
             }
         }
     }
 }
+
 
 function collisionDetection() {
     for (var c = 0; c < brickColumnCount; c++) {
@@ -152,12 +148,7 @@ function collisionDetection() {
             if (b.status === 1) {
                 if (x + ballRadius > b.x && x - ballRadius < b.x + brickWidth &&
                     y + ballRadius > b.y && y - ballRadius < b.y + brickHeight) {
-                    
-                    if (x < b.x || x > b.x + brickWidth) {
-                        dx = -dx; 
-                    } else {
-                        dy = -dy; 
-                    }
+                    dy = -dy;
                     b.status = 0;
                     score++;
                     if (score === brickRowCount * brickColumnCount) {
@@ -174,31 +165,23 @@ function collisionDetection() {
     }
 }
 
+
 function drawScore() {
     timer();
-
-    ctx.font = "16px 'Roboto', Arial, sans-serif"; 
+    ctx.font = "16px Arial";
     ctx.fillStyle = "black";
     ctx.fillText("Score: " + score + "  Time: " + izpisTimer, 8, 20);
 }
 
+
 function paddleCollision() {
-    if (y + dy + ballRadius > canvas.height - paddleHeight && dy > 0) {
+    if (y + dy + ballRadius > canvas.height - paddleHeight && y + dy < canvas.height) {
         if (x > paddleX && x < paddleX + paddleWidth) {
-          
-            let hitPosition = (x - paddleX) / paddleWidth;
-            
-            let normalizedHit = (hitPosition - 0.5) * 2;
-           
-            dx = 1.4 * normalizedHit; 
-            dy = -Math.abs(dy); 
-           
-            return true;
+            dy = -dy;
         }
-        return false;
     }
-    return false;
 }
+
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -209,34 +192,24 @@ function draw() {
 
     if (isGameRunning) {
         collisionDetection();
+        paddleCollision();
 
         x += dx;
         y += dy;
 
-       
         if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
             dx = -dx;
         }
         if (y + dy < ballRadius) {
             dy = -dy;
         }
-
-        
-        if (!paddleCollision()) {
-            if (y + dy > canvas.height + ballRadius) {
-                Swal.fire({
-                    title: "Game Over!",
-                    text: "You lost!",
-                    icon: "error"
-                });
-                resetGame();
-            }
-        }
-
-        if (rightPressed && paddleX < canvas.width - paddleWidth) {
-            paddleX += 4;
-        } else if (leftPressed && paddleX > 0) {
-            paddleX -= 4; 
+        if (y + dy > canvas.height - ballRadius) {
+            Swal.fire({
+                title: "Game Over!",
+                text: "Try again!",
+                icon: "error"
+            });
+            resetGame();
         }
 
         requestAnimationFrame(draw);
@@ -245,11 +218,10 @@ function draw() {
 
 
 function resetGame() {
-    sekunde = 0;
-    sekundeI = 0;
-    minuteI = 0;
-    initGame();
+    sekunde = 0; 
+    sekundeI = "00"; 
+    minuteI = "00"; 
+    izpisTimer = minuteI + ":" + sekundeI; 
+    initGame(); 
     draw();
 }
-
-

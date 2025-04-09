@@ -16,16 +16,18 @@ body {
     height: 100vh;
 }
 canvas {
-    background: #eee; 
+  /*  background: #eee; */
     opacity: 0.8;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    border:2px solid #9DBA3A;
 }
 #controls {
     margin-top: 10px;
+    margin-left:10px;
 }
 
 .pill-button {
-    margin: auto;
+    /*margin: auto;*/
     display: inline-block;
     padding: 10px 20px;
     border-radius: 20px;
@@ -37,7 +39,7 @@ canvas {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: none; 
     
-    
+    margin-right: 15px;
     cursor: pointer; 
 }
 .pill-button:hover {
