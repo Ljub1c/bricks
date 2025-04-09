@@ -53,12 +53,12 @@ canvas {
 #startButton {
     background-color: #ADDB5E; 
     font-family:"MC";
-    padding-right:2vh;
+    
 }
 #stopButton {
     background-color: #11c5d9; 
     font-family:"MC";
-    padding-left:2vh;
+    
 }
 #credentialsButton {
     background-color: #ADDB5E; 
