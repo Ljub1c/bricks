@@ -37,6 +37,7 @@ canvas {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: none; 
     
+    
     cursor: pointer; 
 }
 .pill-button:hover {
@@ -52,10 +53,12 @@ canvas {
 #startButton {
     background-color: #ADDB5E; 
     font-family:"MC";
+    padding-right:2vh;
 }
 #stopButton {
     background-color: #11c5d9; 
     font-family:"MC";
+    padding-left:2vh;
 }
 #credentialsButton {
     background-color: #ADDB5E; 
