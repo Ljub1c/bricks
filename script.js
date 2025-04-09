@@ -102,17 +102,17 @@ function mouseMoveHandler(e) {
 
 
 function keyDownHandler(e) {
-    if (e.key === "Right" || e.key === "ArrowRight") {
+    if (e.code === "ArrowRight") {
         rightPressed = true;
-    } else if (e.key === "Left" || e.key === "ArrowLeft") {
+    } else if (e.code === "ArrowLeft") {
         leftPressed = true;
     }
 }
 
 function keyUpHandler(e) {
-    if (e.key === "Right" || e.key === "ArrowRight") {
+    if (e.code === "ArrowRight") {
         rightPressed = false;
-    } else if (e.key === "Left" || e.key === "ArrowLeft") {
+    } else if (e.code === "ArrowLeft") {
         leftPressed = false;
     }
 }
@@ -210,6 +210,12 @@ function draw() {
                 icon: "error"
             });
             resetGame();
+        }
+
+        if (rightPressed && paddleX < canvas.width - paddleWidth) {
+            paddleX += 7;
+        } else if (leftPressed && paddleX > 0) {
+            paddleX -= 7;
         }
 
         requestAnimationFrame(draw);
