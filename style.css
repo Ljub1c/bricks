@@ -51,9 +51,11 @@ canvas {
 
 #startButton {
     background-color: #ADDB5E; 
+    font-family:"MC";
 }
 #stopButton {
     background-color: #11c5d9; 
+    font-family:"MC";
 }
 #credentialsButton {
     background-color: #ADDB5E; 
@@ -64,4 +66,16 @@ canvas {
     position: absolute;
     bottom: 20px;
     right: 20px;
+    font-family:"MC";
+
+}
+#naslov{
+    margin-bottom: 2%;
+    font-size:6vh;
+    font-family:"MC";
+}
+@font-face {
+    font-family: 'MC';
+    src: url('font/Minecraft.ttf'),
+        
 }

@@ -13,6 +13,13 @@ var brickOffsetLeft = 30;
 var ballImage = new Image();
 ballImage.src = "imgs/TNT.png";
 
+var brick = new Image();
+brick.src = "imgs/brik.png";
+
+var bedrock = new Image();
+bedrock.src = "imgs/bedrock.png";
+
+
 var x, y, dx, dy, paddleX, rightPressed, leftPressed, score, bricks, isGameRunning;
 
 ballImage.onload = function() {
@@ -30,7 +37,7 @@ function initGame() {
     leftPressed = false;
     score = 0;
     bricks = [];
-    var brickColor = "black"; // Set a fixed color for all bricks
+    var brickColor = "black"; 
 
     for (var c = 0; c < brickColumnCount; c++) {
         bricks[c] = [];
@@ -117,11 +124,9 @@ function drawBall() {
 }
 
 function drawPaddle() {
-    ctx.beginPath();
-    ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "gray"; 
-    ctx.fill();
-    ctx.closePath();
+
+    ctx.drawImage(bedrock,paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+
 }
 
 function drawBricks() {
@@ -132,11 +137,9 @@ function drawBricks() {
                 var brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
-                ctx.beginPath();
-                ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                ctx.fillStyle = bricks[c][r].color; 
-                ctx.fill();
-                ctx.closePath();
+                
+                ctx.drawImage(brick,brickX, brickY, brickWidth, brickHeight);
+
             }
         }
     }
