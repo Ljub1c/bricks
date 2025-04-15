@@ -27,7 +27,7 @@ canvas {
 }
 
 .pill-button {
-    /*margin: auto;*/
+    
     display: inline-block;
     padding: 10px 20px;
     border-radius: 20px;
@@ -78,9 +78,18 @@ canvas {
     margin-bottom: 2%;
     font-size:6vh;
     font-family:"MC";
+    color:white;
+    cursor:pointer;
 }
 @font-face {
     font-family: 'MC';
     src: url('font/Minecraft.ttf'),
         
+}
+.custom-popup {
+    background-color: #f2f2f2; 
+    font-family: 'MC';
+    
+    
+    
 }
