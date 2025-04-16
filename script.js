@@ -98,7 +98,6 @@ document.getElementById("naslov").addEventListener("click", function () {
         confirmButtonText: 'Close',
         customClass: {
             popup: 'custom-popup'
-           
         }
     });
 });
@@ -157,8 +156,14 @@ function collisionDetection() {
                     y + ballRadius > b.y && y - ballRadius < b.y + brickHeight) {
                     dy = -dy;
                     b.lives--;
-                    score++;
 
+                    
+                    
+                    if (b.lives === 0) {
+                        score++; 
+                    }
+
+                    
                     let allDestroyed = true;
                     for (let col = 0; col < brickColumnCount; col++) {
                         for (let row = 0; row < brickRowCount; row++) {
@@ -242,10 +247,11 @@ function resetGame() {
     initGame();
     draw();
 }
+
 window.onload = function () {
     Swal.fire({
         title: 'Welcome!',
-        text: 'Destroy the bricks to win the game,use your mouse or arrows to move the paddle',
+        text: 'Destroy the bricks to win the game, use your mouse or arrows to move the paddle',
         icon: 'info',
         iconColor: "#ADDB5E",
         confirmButtonColor: "black",
