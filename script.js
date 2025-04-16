@@ -251,7 +251,7 @@ function resetGame() {
 window.onload = function () {
     Swal.fire({
         title: 'Welcome!',
-        text: 'Destroy the bricks to win the game, use your mouse or arrows to move the paddle',
+        text: 'Destroy the bricks to win the game , use your mouse or arrows to move the paddle',
         icon: 'info',
         iconColor: "#ADDB5E",
         confirmButtonColor: "black",
