@@ -189,11 +189,13 @@ function collisionDetection() {
     }
 }
 
+/*
 function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "black";
     ctx.fillText("Score: " + score + "  Time: " + izpisTimer, 8, 20);
 }
+*/
 
 function paddleCollision() {
     if (y + dy + ballRadius > canvas.height - paddleHeight && y + dy < canvas.height) {
@@ -208,7 +210,7 @@ function draw() {
     drawBricks();
     drawBall();
     drawPaddle();
-    drawScore();
+    //drawScore();
 
     if (isGameRunning) {
         collisionDetection();
