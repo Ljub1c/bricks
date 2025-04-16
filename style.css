@@ -79,8 +79,9 @@ canvas {
     font-size:6vh;
     font-family:"MC";
     color:white;
-    cursor:pointer;
+    
 }
+
 @font-face {
     font-family: 'MC';
     src: url('font/Minecraft.ttf'),
@@ -92,4 +93,8 @@ canvas {
     
     
     
+}
+#credits{
+display:inline;
+cursor:pointer;
 }

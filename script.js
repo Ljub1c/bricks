@@ -88,7 +88,7 @@ document.getElementById("stopButton").addEventListener("click", function () {
     clearInterval(timerInterval);
 });
 
-document.getElementById("naslov").addEventListener("click", function () {
+document.getElementById("credits").addEventListener("click", function () {
     Swal.fire({
         title: 'Informations',
         text: 'Author: Nik Ljubič, 4. RA',
